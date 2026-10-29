@@ -1,10 +1,60 @@
-# 发布状态与发布历史
+<p align="center"><img src="https://res.cloudinary.com/fayne/image/upload/v1787643269/fayne_logo.png" width="300"></p>
 
-适用 Laravel 13、PHP 8.4、Filament 5。独立 Composer 包 `fayne/laravel-filament-post-release-status`；依赖 Core，不强制安装 Page/Menu。宿主已配置本地 path repository，安装后自动发现服务提供者；在租户面板、或关闭多租户的单站管理面板注册 `Fayne\PostReleaseStatus\PostReleaseStatusPlugin::make()`，不要注册到没有租户上下文的平台面板。
+# Laravel Filament Post Release Status
 
-安装后执行 `php artisan migrate`（区域内容库也需运行 Page 迁移），再运行 `php artisan cms:init` 同步权限。查看状态、历史、开始发布分别需要 `tenant.publication.view`、`tenant.publication.history`、`tenant.content.publish`。平台管理员修改租户品牌、语言、域名时同样受目标租户发布锁保护，不扩大平台权限。
+简体中文 | [English](docs/README.en.md)
 
-初始化保留已有角色的自定义授权，不自动覆盖旧角色。升级现有宿主时，需由有权限的管理员在相应租户权限池及角色中按需启用新增的状态、历史查看权限；首次初始化的角色模板包含这些权限。本次仅验证独立测试库，没有对现有应用数据库执行迁移或权限初始化。
+适用于 **PHP 8.4+、Laravel 13、Filament 5** 的发布状态与历史记录包。依赖 CMS Core 提供的发布锁、生命周期与冻结快照，可用于普通单站后台和多租户工作台，不强制依赖 Page 或 Menu。
+
+## 功能与边界
+
+| 能力 | 说明 |
+| --- | --- |
+| 待发布内容 | 展示页面内容、菜单树及设置、站点设置的新增、修改和删除 |
+| 内容语言 | 默认汇总当前区域全部启用语言，也可筛选单一语言 |
+| 变更详情 | 首屏只显示名称、路径等摘要，点击“查看变更”后按需读取字段差异 |
+| 整站发布 | 配合 Core 路由配置，统一发布全部区域与语言，支持域名和 URL 路径区分区域 |
+| 发布保护 | 发布期间由 Core 阻止目标租户的 CMS 写入，进度通过 GET 读取 |
+| 发布历史 | 查看保存的发布快照与结果；仅成功发布推进比较基线 |
+| 后台界面 | 原生 Filament 控件，中英文、深色模式和窄屏布局 |
+
+本包提供管理界面，不负责前端构建和部署，也不提供定时发布。组件、部件和字段结构定义不出现在待发布内容列表中，但仍保留在冻结快照与历史审计中。
+
+## 1. 安装
+
+先按照 [CMS Core 安装说明](../laravel-filament-cms-core/README.md) 配置宿主、认证和包的软件源，再执行：
+
+```bash
+composer require fayne/laravel-filament-post-release-status
+php artisan migrate
+php artisan cms:init
+php artisan filament:assets
+```
+
+私有包及其依赖的软件源必须配置在宿主根 Composer 中；依赖包内部的 `repositories` 不会自动传递给宿主。本包没有独立的数据表或配置文件；发布数据及配置由 Core 管理。区域内容库的 Page 迁移需按 Core/Page 的说明单独执行。
+
+`cms:init` 同步权限目录并保留已有角色的自定义授权。已有角色需由管理员按需授予新增权限，不会因为安装本包自动获得发布权限。Core 的初始建表迁移面向新数据库，已有项目请自行制定数据升级方案。
+
+## 2. 注册面板与权限
+
+在已有的 CMS PanelProvider 中追加插件，保留宿主原有插件、认证和中间件：
+
+```php
+use Fayne\PostReleaseStatus\PostReleaseStatusPlugin;
+
+// 在已有的 ->plugins([...]) 中追加：
+PostReleaseStatusPlugin::make(),
+```
+
+注册到普通单站管理面板或具有租户上下文的工作台；不要注册到没有租户上下文的平台管理面板。多租户开关、管理员 guard 与发布写入保护按 Core 配置。
+
+| 权限 | 用途 |
+| --- | --- |
+| `tenant.publication.view` | 查看发布状态与按需变更详情 |
+| `tenant.publication.history` | 查看发布历史 |
+| `tenant.content.publish` | 开始发布 |
+
+平台管理员修改租户品牌、语言或域名时，同样受目标租户的发布锁保护。
 
 状态页与冻结服务共用一个单例 `ReleaseSnapshotRegistry`，未配置整站路由时比较当前可发布候选与同一站点、租户、区域、语言最后成功快照；启用 v2 时比较同一网站全部范围的最后成功清单。Page 使用当前启用页面，不使用旧发布版本或暂存版本；Menu 比较菜单属性及树。公共设置、组件/部件定义和字段顺序变化归为全局变化，内部时间戳不产生待发布变化，动态内容中同名字段保留。历史只读已保存快照；缺少旧快照时明确显示不可比较，需要完整发布建立基线。
 
@@ -17,7 +67,7 @@
 - `/headless/releases/{release_id}/menus`：保持 `data[].projection` 树结构，`data[].menu` 提供名称、slug、settings 等菜单属性。
 - `/headless/releases/{release_id}/global-settings`：保持 `{data: 公共设置键值}` 结构。
 
-构建必须仅从同一 release 的以上接口读取，不能混读实时 `/headless/global-settings`。外部 Astro 项目不在本工作区，必须将其设置请求改为带 release_id 的冻结地址，页面、菜单同理；不得在未完成该适配时宣称外部构建已完全使用冻结数据。Manifest 中 `global_page_definitions`、`global_menu_definitions` 是定义快照；渲染用页面/菜单投影已经冻结解析结果。
+构建必须仅从同一 release 的以上接口读取，不能混读实时 `/headless/global-settings`。前端构建器必须将设置、页面和菜单请求指向相同 release_id 的冻结地址。Manifest 中 `global_page_definitions`、`global_menu_definitions` 是定义快照；渲染用页面/菜单投影已经冻结解析结果。
 
 构建 webhook JSON 包含 `site_id`、`release_id`、`attempt_id`、`manifest_digest`。签名保留现有 `X-Nova-CMS-Timestamp` 与 `X-Nova-CMS-Signature: sha256=...`，HMAC 输入为 `timestamp.body`。成功或失败后 POST `/headless/releases/callback`，JSON 为 `{release_id, attempt_id, success}`，可带 `error`，同样签名。只有成功回调推进基线并从冻结原始内容创建页面发布版本；按 release 唯一键重试不重复创建。失败不晋升页面。旧 tenant-null 历史快照页面/菜单接口保留兼容，新的生命周期快照要求 token 与域名租户一致。
 
@@ -46,3 +96,17 @@ v2 先验证构建器签名能力，旧服务/无效签名在创建锁和记录�
 首屏只输出名称、路径、语言、变更类型等摘要；点击“查看变更”才通过已认证、短期签名的 GET 请求加载对应条目的字段差异。请求重新检查租户、查看权限及访问账户；内容已变化或引用过期时提示刷新列表。请求不返回原始晋升快照和连接信息，并禁止缓存。历史仍读取冻结数据。
 
 此优化延后字段差异格式化及详细 HTML 的生成和传输；识别哪些内容发生变化仍需读取和比较快照，不等于完全消除首屏比较开销。
+
+## 开发与验证
+
+```bash
+composer install
+composer test
+composer format
+```
+
+测试使用隔离的内存 SQLite。格式检查不修改文件；需要格式化时运行 `composer format:fix`。`composer.lock`、依赖目录和测试缓存不纳入包源码。
+
+## 许可证
+
+本包为私有软件，使用和分发须获得授权，详见 [LICENSE.md](LICENSE.md)。

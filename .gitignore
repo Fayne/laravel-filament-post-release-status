@@ -1,0 +1,11 @@
+/.idea
+/.vscode
+/vendor/
+/node_modules/
+/composer.lock
+/composer.phar
+/.phpunit.result.cache
+/.phpunit.cache/
+/coverage/
+.DS_Store
+Thumbs.db
