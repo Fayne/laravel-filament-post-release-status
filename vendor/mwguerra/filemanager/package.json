@@ -1,0 +1,12 @@
+{
+    "name": "mwguerra-filemanager",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "npx @tailwindcss/cli -i resources/css/index.css -o resources/dist/filemanager.css --minify"
+    },
+    "devDependencies": {
+        "@tailwindcss/cli": "^4.1.0",
+        "tailwindcss": "^4.1.0"
+    }
+}

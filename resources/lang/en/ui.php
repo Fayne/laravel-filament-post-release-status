@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'refresh_list' => 'Refresh list',
+    'all_languages' => 'All languages', 'publish_language' => 'Publishing language: :locale',
+    'details_loading' => 'Loading changes…', 'details_failed' => 'Changes could not be loaded. Please retry.', 'retry' => 'Retry',
+    'details_stale' => 'Content or access has changed. Refresh the list to view these changes.',
+    'partial_baseline' => 'No reliable baseline is available for these languages; publish them to establish one: :locales',
+    'status' => 'Publication status', 'history' => 'Publication history', 'overview' => 'Publication overview',
+    'ready' => 'Ready to publish', 'publishing' => 'Publishing', 'up_to_date' => 'Up to date', 'baseline_required' => 'Baseline needed',
+    'ready_description' => 'Review your changes, then publish them to the website.',
+    'locked_description' => 'Content is locked for this tenant. Editing resumes when publication completes.',
+    'empty_description' => 'There are no pending changes in the selected scope.',
+    'latest' => 'Latest publication', 'no_release' => 'Not published yet', 'release_number' => 'Publication #:number',
+    'viewing_scope' => 'Viewing scope', 'locale' => 'Language', 'region' => 'Region', 'default_region' => 'Default', 'apply' => 'View',
+    'scope_hint' => 'View changes by language and region.', 'whole_site_hint' => 'Publication includes all regions and languages; filters only affect this view.',
+    'start' => 'Publish changes', 'rebuild' => 'Publish all and establish a baseline',
+    'added' => 'Added', 'modified' => 'Modified', 'deleted' => 'Deleted', 'global' => 'Site-wide impact',
+    'global_hint' => 'Included in changes; these affect the entire website build.', 'global_badge' => 'Site-wide',
+    'changes' => 'Pending changes', 'changes_description' => 'Expand an item to compare its fields. Site-wide changes are listed only once.',
+    'baseline_unavailable' => 'A publication baseline is needed', 'baseline_description' => 'A reliable comparison is unavailable. Publish all content to establish a new baseline.',
+    'no_changes' => 'No pending changes', 'field' => 'Changed field', 'before' => 'Before publication', 'after' => 'After publication',
+    'details' => 'View changes', 'structure_changed' => 'Content structure changed', 'no_field_details' => 'There are no displayable field differences for this item.',
+    'unset' => 'Not set', 'yes' => 'Yes', 'no' => 'No', 'empty_list' => 'Empty list', 'item_number' => 'Item :number',
+    'types' => ['page' => 'Page', 'menu' => 'Menu', 'global_settings' => 'Site settings', 'global_page_definitions' => 'Page definitions', 'global_menu_definitions' => 'Menu definitions', 'global_publication_routing' => 'Publication routing', 'global' => 'Site configuration'],
+    'fields' => ['website_name' => 'Website name', 'logo' => 'Logo', 'copyright' => 'Copyright', 'primary_color' => 'Primary color', 'secondary_color' => 'Secondary color', 'primary_font_color' => 'Primary text color', 'secondary_font_color' => 'Secondary text color', 'primary_background_color' => 'Primary background', 'secondary_background_color' => 'Secondary background', 'component_show_border' => 'Show borders', 'component_show_shadow' => 'Show shadows', 'component_show_radius' => 'Rounded corners', 'tenant' => 'Tenant', 'name' => 'Name', 'title' => 'Title', 'slug' => 'Slug', 'path' => 'Path', 'url' => 'URL', 'locale' => 'Language', 'region' => 'Region', 'short_name' => 'Short name', 'content_languages' => 'Content languages', 'domains' => 'Domains', 'languages' => 'Language settings', 'multilingual_enabled' => 'Multilingual', 'default_locale' => 'Default language', 'supported_locales' => 'Supported languages', 'component' => 'Component', 'widget' => 'Widget', 'fields' => 'Fields', 'resolver' => 'Field type', 'weight' => 'Order', 'options' => 'Options', 'rules' => 'Rules', 'specifications' => 'Specifications', 'id' => 'ID', 'settings' => 'Settings'],
+];

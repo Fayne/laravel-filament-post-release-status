@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'refresh_list' => '刷新列表',
+    'all_languages' => '全部语言', 'publish_language' => '当前发布语言：:locale',
+    'details_loading' => '正在加载变更…', 'details_failed' => '变更加载失败，请重试。', 'retry' => '重试',
+    'details_stale' => '内容或访问状态已变化，请刷新列表后查看。',
+    'partial_baseline' => '以下语言缺少可靠发布基线，暂不列出其变更，需发布后建立基线：:locales',
+    'status' => '发布状态', 'history' => '发布历史', 'overview' => '发布概览',
+    'ready' => '准备就绪', 'publishing' => '发布进行中', 'up_to_date' => '内容已同步', 'baseline_required' => '待建立基线',
+    'ready_description' => '检查本次变更，确认后将内容发布到网站。',
+    'locked_description' => '当前租户内容已锁定，发布完成后自动恢复编辑。',
+    'empty_description' => '当前查看范围内没有待发布变更。',
+    'latest' => '最近发布', 'no_release' => '尚未发布', 'release_number' => '发布记录 #:number',
+    'viewing_scope' => '当前查看范围', 'locale' => '语言', 'region' => '区域', 'default_region' => '默认', 'apply' => '查看',
+    'scope_hint' => '按语言和区域查看变更内容。', 'whole_site_hint' => '本次发布包含所有区域和语言，当前筛选仅影响显示。',
+    'start' => '开始发布', 'rebuild' => '完整发布并重建基线',
+    'added' => '新增', 'modified' => '修改', 'deleted' => '删除', 'global' => '全站构建影响',
+    'global_hint' => '包含在变更中，会影响整个网站构建。', 'global_badge' => '全站影响',
+    'changes' => '待发布变更', 'changes_description' => '展开条目查看字段差异。全站影响条目不会重复列出。',
+    'baseline_unavailable' => '需要建立发布基线', 'baseline_description' => '发布基线不可用，无法可靠比较。可通过完整发布建立新基线。',
+    'no_changes' => '暂无待发布变更', 'field' => '变更字段', 'before' => '发布前', 'after' => '发布后',
+    'details' => '查看变更', 'structure_changed' => '内容结构已变化', 'no_field_details' => '该条目没有可展示的字段差异。',
+    'unset' => '未设置', 'yes' => '是', 'no' => '否', 'empty_list' => '空列表', 'item_number' => '第 :number 项',
+    'types' => ['page' => '页面', 'menu' => '菜单', 'global_settings' => '站点设置', 'global_page_definitions' => '页面组件定义', 'global_menu_definitions' => '菜单组件定义', 'global_publication_routing' => '发布路由', 'global' => '全站配置'],
+    'fields' => ['website_name' => '网站名称', 'logo' => '标志', 'copyright' => '版权信息', 'primary_color' => '主题色', 'secondary_color' => '辅助色', 'primary_font_color' => '主要文字颜色', 'secondary_font_color' => '次要文字颜色', 'primary_background_color' => '主要背景颜色', 'secondary_background_color' => '次要背景颜色', 'component_show_border' => '显示边框', 'component_show_shadow' => '显示阴影', 'component_show_radius' => '圆角', 'tenant' => '租户', 'name' => '名称', 'title' => '标题', 'slug' => '标识', 'path' => '路径', 'url' => '网址', 'locale' => '语言', 'region' => '区域', 'short_name' => '简称', 'content_languages' => '内容语言', 'domains' => '域名', 'languages' => '语言配置', 'multilingual_enabled' => '多语言', 'default_locale' => '默认语言', 'supported_locales' => '支持的语言', 'component' => '组件', 'widget' => '小部件', 'fields' => '字段', 'resolver' => '字段类型', 'weight' => '排序', 'options' => '选项', 'rules' => '规则', 'specifications' => '规格', 'id' => '编号', 'settings' => '设置'],
+];

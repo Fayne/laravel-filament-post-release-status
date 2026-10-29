@@ -1,0 +1,64 @@
+{
+    "name": "fayne/laravel-filament-post-release-status",
+    "description": "Tenant publication status and immutable release history for Filament.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.4",
+        "fayne/laravel-filament-cms-core": "dev-master",
+        "filament/filament": "^5.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^11.0",
+        "phpunit/phpunit": "^12.0",
+        "laravel/pint": "^1.27",
+        "mwguerra/filemanager": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fayne\\PostReleaseStatus\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../laravel-filament-*",
+            "options": {
+                "symlink": true,
+                "versions": {
+                    "fayne/laravel-filament-cascade": "dev-master",
+                    "fayne/laravel-filament-cms-core": "dev-master",
+                    "fayne/laravel-filament-media-picker": "dev-master",
+                    "fayne/laravel-filament-page": "dev-master",
+                    "fayne/laravel-filament-qrcode": "dev-master",
+                    "fayne/laravel-filament-store-locator": "dev-master",
+                    "fayne/laravel-filament-advanced-text": "dev-master",
+                    "fayne/laravel-filament-event": "dev-master",
+                    "fayne/laravel-filament-sensitive-field": "dev-master",
+                    "fayne/laravel-filament-nestable": "dev-master",
+                    "fayne/laravel-filament-table-field": "dev-master",
+                    "fayne/laravel-filament-entity-reference": "dev-master",
+                    "fayne/laravel-filament-page-builder": "dev-master",
+                    "fayne/laravel-filament-audit": "dev-master",
+                    "fayne/laravel-filament-opening-hours": "dev-master",
+                    "fayne/laravel-filament-menu": "dev-master",
+                    "fayne/laravel-filament-sso": "dev-master"
+                }
+            }
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fayne\\PostReleaseStatus\\PostReleaseStatusServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit -c phpunit.xml.dist",
+        "format": "pint --test src tests",
+        "format:fix": "pint src tests"
+    }
+}

@@ -1,0 +1,8 @@
+/vendor/
+/composer.lock
+/.maestro/
+/.phpunit.cache/
+/tests/coverage/
+/node_modules/
+/package-lock.json
+/tests/e2e-app/
