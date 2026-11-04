@@ -11,6 +11,13 @@ use Illuminate\Support\ServiceProvider;
 
 final class PostReleaseStatusServiceProvider extends ServiceProvider
 {
+    public function register(): void
+    {
+        $this->callAfterResolving(\Fayne\CMS\Support\Modules\ModuleRegistry::class, function ($registry): void {
+            $registry->register('post-release-status', 'Publication Status', \Fayne\PostReleaseStatus\PostReleaseStatusPlugin::class);
+        });
+    }
+
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'post-release-status');

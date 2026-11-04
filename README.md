@@ -110,3 +110,11 @@ composer format
 ## 许可证
 
 本包为私有软件，使用和分发须获得授权，详见 [LICENSE.md](LICENSE.md)。
+
+## 已安装模块自动接入
+
+与 CMS Core 配合使用时，本包的 ServiceProvider 自动登记模块，无需在宿主逐个维护业务插件清单。继承 `Fayne\CMS\Providers\AdminPanelProvider` / `TenantPanelProvider` 的后台自动接入：单租户使用普通后台，多租户业务界面进入 workspace。安装模块不会自动授予账号权限，导航仍遵循 Policy。
+
+已有完全自定义的 PanelProvider 可在配置完显式插件后，将最终返回改为 `return app(\Fayne\CMS\Support\Modules\ModuleRegistry::class)->applyTo($panel);`。同 ID 的显式插件会保留；不要在此调用之后再次注册同一个业务插件。本文原有手动 Plugin 示例仍可用于独立接入或完全自定义面板。
+
+本期所有已登记模块默认启用；不提供后台启停、在线安装卸载或 API/队列停用。

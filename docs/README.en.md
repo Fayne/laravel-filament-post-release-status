@@ -101,3 +101,11 @@ Tests use isolated in-memory SQLite. Formatting checks do not modify files; use 
 ## License
 
 This is proprietary software. Use and distribution require authorization; see [LICENSE.md](../LICENSE.md).
+
+## Automatic CMS module registration
+
+With CMS Core installed, this package registers its module through its Laravel ServiceProvider. Panels extending `Fayne\CMS\Providers\AdminPanelProvider` / `TenantPanelProvider` automatically connect installed modules: business UI belongs to the ordinary panel in single-site mode and the workspace in multi-tenant mode. Installation grants no account permissions; policies still control navigation and access.
+
+In a fully custom PanelProvider, configure explicit plugins first, then return `app(\Fayne\CMS\Support\Modules\ModuleRegistry::class)->applyTo($panel)`. An explicitly configured plugin with the same ID is preserved. Do not register the same business plugin again after applying the registry. Earlier manual Plugin examples remain applicable to standalone or fully custom panels.
+
+Registered modules are enabled by default in this phase. There is no module-management UI, online installation/removal or runtime API/queue disabling. 
